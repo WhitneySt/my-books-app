@@ -26,6 +26,7 @@ const Home = () => {
                 ...rangePages,
                 ...range
             })
+            setFilters({...filters, pages: range.max})
         })
     }, []);
 

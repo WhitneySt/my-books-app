@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom';
 import './navbar.scss';
+import { AppContext } from '../../routes/router';
 
 const Navbar = () => {
     const links = [
@@ -22,10 +23,12 @@ const Navbar = () => {
             label: 'register',
             AuthRequired: false
         }
-    ]
+    ];
+
+    const { isUserLogged } = useContext(AppContext);
     return (
         <nav className='navContainer'>{
-            links.map(item => <NavLink key={item.id} to={item.link} className={'navContainer__link'}>{item.label}</NavLink>)
+            links.map(item => <NavLink key={item.id} to={item.link} className={isUserLogged === item.AuthRequired ? 'navContainer__link' : 'navContainer__link hidden'}>{item.label}</NavLink>)
         }</nav>
     )
 }

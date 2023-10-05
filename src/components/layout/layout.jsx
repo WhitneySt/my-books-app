@@ -5,10 +5,10 @@ import FooterPages from '../footerPages/footerPages'
 
 const Layout = () => {
   return (
-      <div>
-          <Navbar/>
-          <Outlet />
-          <FooterPages/>
+    <div>
+      <Navbar/>
+      <Outlet />
+      <FooterPages />
     </div>
   )
 }

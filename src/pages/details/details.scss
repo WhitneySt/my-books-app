@@ -1,0 +1,100 @@
+.bookDetails{
+    background-color: rgba($color: #000000, $alpha: .4);
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .box{
+        position: relative;
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        &__figure{
+            width: 150px;
+            height: 200px;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        &__info{
+            display: flex;
+            gap:10px;
+            width: 100%;
+            p{
+                width: 45%;
+                align-self: flex-end;
+            }
+        }
+        &__author{
+            display: flex;
+            gap:10px;
+            span:first-child{
+                font-weight: 700;
+            }
+            span:nth-child(2){
+                font-style: italic;
+            }
+        }
+        &__genre{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            span:first-child{
+                border: 2px solid palevioletred;
+                color: palevioletred;
+                font-weight: 700;
+                padding: 5px 10px;
+                border-radius: 15px;
+            }
+        }
+        &__otherBooks{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            section{
+                display: flex;
+                //justify-content: space-evenly;
+                gap: 15px;
+                flex-wrap: wrap;
+                span{
+                    border: 1px solid black;
+                    padding: 5px 10px;
+                    border-radius: 15px;
+                    font-size: 14px;
+                    text-align: center;
+                    &:nth-child(odd){
+                        color:blue;
+                        border-color: blue;
+                    }
+                    &:nth-child(even){
+                        color:palevioletred;
+                        border-color: palevioletred;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.close{
+    position: absolute;
+    right: -20px;
+    top: -25px;
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba($color: #ecd1d1, $alpha: .95);
+    cursor: pointer;
+}

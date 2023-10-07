@@ -6,6 +6,7 @@ import PublicRoutes from './publicRoutes'
 import Login from '../pages/login/login'
 import Register from '../pages/register/register'
 import Layout from '../components/layout/layout'
+import Details from '../pages/details/details'
 
 export const AppContext = createContext({});
 
@@ -14,7 +15,7 @@ const Router = () => {
     const [userLogged, setUserLogged] = useState({});
 
     const globalState = { isUserLogged, setIsUserLogged, userLogged, setUserLogged };
-    
+
     return (
         <BrowserRouter basename='/my-books-app'>
             <AppContext.Provider value={globalState}>
@@ -22,6 +23,9 @@ const Router = () => {
                     <Route element={<Layout />}>
                         <Route element={<PrivatedRoutes isAuthenticate={isUserLogged} />}>
                             <Route index element={<Home />} />
+                            <Route path='home' element={<Home />}>
+                                <Route path=':name' element={<Details />} />
+                            </Route>
                         </Route>
                         <Route element={<PublicRoutes isAuthenticate={isUserLogged} />}>
                             <Route path='login' element={<Login />} />

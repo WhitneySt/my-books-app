@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { getBooks } from '../../services/booksService';
 import './home.scss';
 import useFilter from '../../hooks/useFilter';
+import Card from '../../components/card/card';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { replaceSpacesWithHyphen } from '../../utils/stringsUtils';
 
 
 const Home = () => {
+    const navigate = useNavigate();
     const [books, setBooks] = useState([]);
     const { filters, filterResult, responseFilter, setFilters, handleFilter } = useFilter();
     // const [filterResult, setFilterResult] = useState([]);
@@ -80,16 +84,21 @@ const Home = () => {
 
     // }
 
+    const navigateToBooksDetails = (bookName) => {
+        const dinamicParam = replaceSpacesWithHyphen(bookName);
+        navigate(dinamicParam);
+    }
+
     return (
         <main>
             <section className='filtersContainer'>
                 <div>
                     <label>Filtrar por páginas</label>
-                    <input type="range" min={rangePages.min} max={rangePages.max} step={rangePages.step} onChange={onFilter} name="pages" value={filters.pages} />
+                    <input type="range" min={rangePages.min} max={rangePages.max} step={rangePages.step} onChange={onFilter} name="pages" value={filters.pages || ''} />
                 </div>
                 <div>
                     <label>Filtrar por género</label>
-                    <select name="genre" onChange={onFilter} value={filters.genre}>
+                    <select name="genre" onChange={onFilter} value={filters.genre || ''}>
                         <option value={''}>Todas</option>
                         {
                             categories.length ? categories.map((item, index) => <option key={index} value={item}>{item}</option>) : <></>
@@ -102,14 +111,21 @@ const Home = () => {
             }
             <section className='cardsContainer'>
                 {
-                    filterResult.length ? filterResult.map((item, index) => <figure key={index}>
-                        <img src={item.book.cover} alt={item.book.title} />
-                    </figure>) :
-                        books.length > 0 ? books.map((item, index) => <figure key={index}>
-                            <img src={item.book.cover} alt={item.book.title} />
-                        </figure>) : <div>...Cargando</div>
+                    filterResult.length ? filterResult.map((item, index) =>
+                        // <figure key={index}>
+                        //     <img src={item.book.cover} alt={item.book.title} />
+                        // </figure>
+                        <Card key={index} book={item.book} navigate={navigateToBooksDetails}/>
+                    ) :
+                        books.length > 0 ? books.map((item, index) =>
+                            // <figure key={index}>
+                            //     <img src={item.book.cover} alt={item.book.title} />
+                            // </figure>
+                            <Card key={index} book={item.book} navigate={navigateToBooksDetails}/>
+                        ) : <div>...Cargando</div>
                 }
             </section>
+            <Outlet/>
         </main>
     )
 }
